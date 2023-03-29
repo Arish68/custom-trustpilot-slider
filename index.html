@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+   <style>
+       section.reviews h1, section.reviews .h1 {
+           font-family: Helvetica,Helvetica Neue,Arial,Lucida Grande,sans-serif;
+           font-weight: 400;
+           font-style: normal;
+           -webkit-font-smoothing: antialiased;
+           -webkit-text-size-adjust: 100%;
+           text-rendering: optimizeLegibility;
+           font-size: 16px;
+           line-height: 1.5;
+           color: #444;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           column-gap: 12px;
+           margin-bottom: 16px;
+       }
+       .str-rating p {
+           color: rgba(25, 25, 25, 0.6);
+           font-size: 12px;
+           line-height: 14px;
+           letter-spacing: 0;
+           font-family: "Roboto", sans-serif !important; }
+
+       .str-rating {
+           display: flex;
+           justify-content: space-between; }
+
+       h3.review-title, .review-title.h3 {
+           color: #1f2936;
+           font-size: 14px;
+           font-weight: 700;
+           height: 16px;
+           margin: 15px 0 10px;
+           text-transform: none;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+           font-family: "Roboto", sans-serif !important; }
+       h5.review-cutname {
+           text-align: left;
+           margin-top: 10px;
+       }
+       .review-text {
+           text-align: left;
+       }
+       h5.review-cutname, .review-cutname.h5 {
+           color: rgba(25, 25, 25, 0.6);
+           font-size: 12px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+           text-transform: capitalize;
+           font-weight: bold;
+           letter-spacing: 0.1em;
+           margin-top: 17px; }
+
+       .flickity-slider {
+           left: -30px !important; }
+
+       .flickity-slider {
+           left: 0px !important; }
+
+       section.reviews .flickity-viewport {
+           height: -webkit-fill-available; }
+
+       section.reviews {
+           margin-bottom: 70px; }
+
+       section.reviews .flickity-prev-next-button {
+           display: none; }
+
+       section.reviews h1, section.reviews .h1 {
+           text-align: center; }
+
+       section.reviews .carousel-cell {
+           width: 43%;
+           margin: auto;
+           padding-right: 14px; }
+       .wrapper.is-flex {
+           padding: 0;
+           display: flex;
+           margin: 10px 0;
+           align-items: center;
+       }
+       .wrapper.is-flex span {
+           padding-left: 5px;
+       }
+   </style>
+
+
+</head>
+<body>
+
+
+<div class="wrapper is-flex">
+    <img src="https://cdn.shopify.com/s/files/1/0652/2788/2724/files/anodyne_tp_45_183x.png?v=1662072344" style="display:block; height:20px;"><span>(4,7 beoordeling)</span>
+</div>
+<section class="reviews">
+    {% if section.settings.star_img != blank or section.settings.star-svg != blank or section.settings.title != blank   %}
+    <h1>
+        {% if section.settings.star_img != blank %}
+        <img src="{{ block.settings.star_img | img_url: 'master'}}" >
+        {% elsif section.settings.star-svg != blank  %}
+        {{ section.settings.star-svg }}
+        {% endif %}
+        {% if section.settings.title != blank %}
+        ({{section.settings.title}})
+        {% endif %}
+    </h1>
+    {% endif %}
+    <!-- Flickity HTML init -->
+    <div class="carousel" data-flickity="{ &quot;groupCells&quot;: true }">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        <div class="carousel-cell">
+            <div class="review-info">
+                <div class="str-rating">
+                    {% if block.settings.star_img != blank %}
+                    <img src="{{ block.settings.star_img | img_url: 'master'}}" >
+                    {% elsif block.settings.star-svg != blank  %}
+                    {{ block.settings.star-svg }}
+                    {% endif %}
+                    {% if block.settings.date != blank %}
+                    <p>{{block.settings.date}}</p>
+                    {% endif %}
+                </div>
+                {% if block.settings.title != blank %}
+                <h3 class="review-title">{{block.settings.title}}</h3>
+                {% endif %}
+                {% if block.settings.review != blank %}
+                <div class="review-text">{{block.settings.review}}</div>
+                {% endif %}
+                {% if block.settings.author != blank %}
+                <h5 class="review-cutname">{{block.settings.author}}</h5>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+</section>
+
+</body>
+</html>
